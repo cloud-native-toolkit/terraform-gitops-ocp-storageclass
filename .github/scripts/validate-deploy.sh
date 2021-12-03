@@ -2,16 +2,18 @@
 
 GIT_REPO=$(cat git_repo)
 GIT_TOKEN=$(cat git_token)
-STORNAME=$(cat git_sc_name)
 
-#export KUBECONFIG=$(cat .kubeconfig)
+export KUBECONFIG=$(cat .kubeconfig)
 #NAMESPACE=$(cat .namespace)
-#BRANCH="main"
-#SERVER_NAME="default"
-#TYPE="base"
-#LAYER="2-services"
+BRANCH="main"
+SERVER_NAME="default"
+TYPE="base"
+LAYER="2-services"
 
-#COMPONENT_NAME="my-module"
+COMPONENT_NAME="ocpstorageclass"
+NAMESPACE=${COMPONENT_NAME}
+
+STORNAME=$(cat git_sc_name)
 
 mkdir -p .testrepo
 
@@ -21,34 +23,53 @@ cd .testrepo || exit 1
 
 find . -name "*"
 
-SERVER_NAME="default"
-NAMESPACE="gitops-namespace"
-
-if [[ ! -f "argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml" ]]; then
-  echo "Argocd config missing: argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml"
+if [[ ! -f "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml" ]]; then
+  echo "ArgoCD config missing - argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
   exit 1
 fi
 
-echo "Printing argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml"
-cat "argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml"
+echo "Printing argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
+cat "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
 
-if [[ ! -f "argocd/1-infrastructure/cluster/${SERVER_NAME}/kustomization.yaml" ]]; then
-  echo "Argocd config missing: argocd/1-infrastructure/cluster/${SERVER_NAME}/kustomization.yaml"
+if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml" ]]; then
+  echo "Application values not found - payload/2-services/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
   exit 1
 fi
 
-echo "Printing argocd/1-infrastructure/cluster/${SERVER_NAME}/kustomization.yaml"
-cat "argocd/1-infrastructure/cluster/${SERVER_NAME}/kustomization.yaml"
+#echo "Printing payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
+#cat "payload/${LAYER}namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
+#
+#count=0
+#until kubectl get namespace "${NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+#  echo "Waiting for namespace: ${NAMESPACE}"
+#  count=$((count + 1))
+#  sleep 15
+#done
 
-if [[ ! -f "payload/1-infrastructure/namespace/${NAMESPACE}/namespace/ns.yaml" ]]; then
-  echo "Payload missing: payload/1-infrastructure/namespace/${NAMESPACE}/namespace/ns.yaml"
+#if [[ $count -eq 20 ]]; then
+#  echo "Timed out waiting for namespace: ${NAMESPACE}"
+#  exit 1
+#else
+#  echo "Found namespace: ${NAMESPACE}. Sleeping for 30 seconds to wait for everything to settle down"
+#  sleep 30
+#fi
+
+#DEPLOYMENT="${COMPONENT_NAME}-${BRANCH}"
+count=0
+until kubectl get StorageClass ${STORNAME} || [[ $count -eq 20 ]]; do
+  echo "Waiting for StorageClass ${STORNAME} to deploy"
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 20 ]]; then
+  echo "Timed out waiting for StorageClass ${STORNAME} to deploy"
   exit 1
 fi
 
-echo "Printing payload/1-infrastructure/namespace/${NAMESPACE}/namespace/ns.yaml"
-cat "payload/1-infrastructure/namespace/${NAMESPACE}/namespace/ns.yaml"
+kubectl get StorageClass ${STORNAME} || exit 1
 
 cd ..
 rm -rf .testrepo
-kubectl get StorageClass ${STORNAME} || exit 1
+
 

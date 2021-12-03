@@ -1,7 +1,8 @@
 locals {
-  name          = var.sc_name
+  name          = "ocpstorageclass"
   bin_dir       = module.setup_clis.bin_dir
-  yaml_dir      = "${path.cwd}/.tmp/storageclass-${var.sc_name}"
+  //yaml_dir      = "${path.cwd}/.tmp/storageclass-${var.sc_name}"
+  yaml_dir     = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
 
   layer = "services"
   application_branch = "main"
@@ -26,7 +27,7 @@ resource null_resource setup_gitops {
   depends_on = [null_resource.create_yaml]
 
   provisioner "local-exec" {
-    command = "${local.bin_dir}/igc gitops-module '${local.name}' -n 'notneeded' --contentDir '${local.yaml_dir}' --serverName '${var.server_name}' -l '${local.layer}' --debug"
+    command = "${local.bin_dir}/igc gitops-module '${local.name}' -n '${local.name}' --contentDir '${local.yaml_dir}' --serverName '${var.server_name}' -l '${local.layer}' --debug"
 
     environment = {
       GIT_CREDENTIALS = yamlencode(var.git_credentials)

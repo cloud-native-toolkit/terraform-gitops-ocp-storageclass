@@ -1,4 +1,4 @@
-name: ""
+name: "OCP Storage Class"
 type: terraform
 description: ""
 tags:

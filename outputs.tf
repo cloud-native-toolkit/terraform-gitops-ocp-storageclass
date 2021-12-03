@@ -1,5 +1,7 @@
-#output "myoutput" {
-#  description = "Description of my output"
-#  value       = "value"
-#  depends_on  = [<some resource>]
-#}
+output "storage_name" {
+  value       = var.sc_name
+  description = "Name of the storage class created"
+  depends_on  = [
+    null_resource.create_yaml
+  ]
+}

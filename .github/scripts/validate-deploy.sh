@@ -22,7 +22,7 @@ cd .testrepo || exit 1
 find . -name "*"
 
 SERVER_NAME="default"
-NAMESPACE="gitops-storageclass"
+NAMESPACE="gitops-namespace"
 
 if [[ ! -f "argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml" ]]; then
   echo "Argocd config missing: argocd/1-infrastructure/cluster/${SERVER_NAME}/base/namespace-${NAMESPACE}.yaml"

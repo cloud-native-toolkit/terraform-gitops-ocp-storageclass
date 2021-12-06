@@ -11,7 +11,8 @@ TYPE="base"
 LAYER="2-services"
 
 COMPONENT_NAME="ocpstorageclass"
-NAMESPACE=${COMPONENT_NAME}
+#NAMESPACE=${COMPONENT_NAME}
+NAMESPACE="gitops-ocpstorageclass"
 
 STORNAME=$(cat git_sc_name)
 

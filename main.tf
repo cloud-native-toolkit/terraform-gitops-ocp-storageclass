@@ -5,7 +5,7 @@ locals {
   //yaml_dir      = "${path.cwd}/.tmp/storageclass-${var.sc_name}"
   yaml_dir     = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
 
-  layer = "services"
+  layer = "infrastructure"
   application_branch = "main"
   layer_config = var.gitops_config[local.layer]
 }

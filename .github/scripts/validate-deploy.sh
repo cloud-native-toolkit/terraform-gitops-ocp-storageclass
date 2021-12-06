@@ -8,7 +8,7 @@ export KUBECONFIG=$(cat .kubeconfig)
 BRANCH="main"
 SERVER_NAME="default"
 TYPE="base"
-LAYER="2-services"
+LAYER="1-infrastructure"
 
 COMPONENT_NAME="ocpstorageclass"
 NAMESPACE="default"
@@ -32,7 +32,7 @@ echo "Printing argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COM
 cat "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
 
 if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml" ]]; then
-  echo "Application values not found - payload/2-services/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
+  echo "Application values not found - payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
   exit 1
 fi
 

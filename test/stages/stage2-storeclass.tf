@@ -17,7 +17,7 @@ module "gitops_storeclass" {
 
 resource null_resource gitops_sc_output {
   provisioner "local-exec" {
-    command = "echo -n '${module.gitops_storeclass.storage_name}' > git_sc_name"
+    command = "echo -n '${module.gitops_storeclass.name}' > git_sc_name"
   }
 
 }

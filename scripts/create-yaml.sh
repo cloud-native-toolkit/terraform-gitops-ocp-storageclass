@@ -16,9 +16,9 @@ kind: StorageClass
 metadata:
   name: ${NAME}
   annotations:
-    storageclass.kubernetes.io/is-default-class: ${ISDEFAULT}
-provisioner: ${PROVISIONER}
-volumeBindingMode: ${BINDINGMODE}
-allowVolumeExpansion: ${VOLEXPANSION}
-reclaimPolicy: ${REPOLICY}
+    storageclass.kubernetes.io/is-default-class: '${ISDEFAULT}'
+provisioner: '${PROVISIONER}'
+volumeBindingMode: '${BINDINGMODE}'
+allowVolumeExpansion: '${VOLEXPANSION}'
+reclaimPolicy: '${REPOLICY}'
 EOL

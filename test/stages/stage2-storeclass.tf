@@ -10,14 +10,14 @@ module "gitops_storeclass" {
   //tls_secret_name = module.dev_cluster.platform.tls_secret
   //kubeseal_cert = module.argocd-bootstrap.sealed_secrets_cert
   
-  name="ibmc-vpc-block-10iops-test"
+  name=var.sc_name
   provisioner_name="vpc.block.csi.ibm.io"
 
 }
 
 resource null_resource gitops_sc_output {
   provisioner "local-exec" {
-    command = "echo -n '${module.gitops_storeclass.name}' > git_sc_name"
+    command = "echo -n '${var.sc_name}' > git_sc_name"
   }
 
 }

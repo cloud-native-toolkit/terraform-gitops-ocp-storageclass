@@ -77,3 +77,9 @@ variable "gitops_namespace" {
 
 variable "git_username" {
 }
+
+variable "sc_sname" {
+  type        = string
+  description = "The name of the storage class to create"
+  default     = "ibmc-vpc-block-10iops-tier-test"
+}

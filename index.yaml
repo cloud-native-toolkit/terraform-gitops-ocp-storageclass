@@ -1,11 +1,158 @@
 id: github.com/cloud-native-toolkit/terraform-gitops-ocp-storageclass
-name: ""
+name: "OCP Storage Class"
 type: terraform
 description: ""
 tags:
   - tools
   - gitops
 versions:
+  - platforms:
+      - kubernetes
+      - ocp3
+      - ocp4
+    dependencies:
+      - id: gitops
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-tools-gitops.git
+            version: ">= 1.1.0"
+      - id: cluster
+        refs:
+          - source: github.com/ibm-garage-cloud/terraform-ibm-container-platform
+            version: ">= 1.7.0"
+          - source: github.com/ibm-garage-cloud/terraform-ibm-ocp-vpc
+            version: ">= 1.0.0"
+          - source: github.com/ibm-garage-cloud/terraform-k8s-ocp-cluster
+            version: ">= 2.0.0"
+      - id: namespace
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git
+            version: ">= 1.0.0"
+    variables:
+      - name: gitops_config
+        moduleRef:
+          id: gitops
+          output: gitops_config
+        type: |-
+          object({
+              boostrap = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              infrastructure = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              services = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              applications = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+            })
+        description: Config information regarding the gitops repo structure
+      - name: git_credentials
+        moduleRef:
+          id: gitops
+          output: git_credentials
+        type: |-
+          list(object({
+              repo = string
+              url = string
+              username = string
+              token = string
+            }))
+        description: The credentials for the gitops repo(s)
+      - name: server_name
+        moduleRef:
+          id: gitops
+          output: server_name
+        type: string
+        description: The name of the server
+        default: default
+        optional: true
+      - name: cluster_type
+        moduleRef:
+          id: cluster
+          output: platform.type_code
+      - name: cluster_ingress_hostname
+        moduleRef:
+          id: cluster
+          output: platform.ingress
+      - name: tls_secret_name
+        moduleRef:
+          id: cluster
+          output: platform.tls_secret
+      - name: namespace
+        moduleRef:
+          id: namespace
+          output: name
+      - name: kubeseal_cert
+        moduleRef:
+          id: gitops
+          output: sealed_secrets_cert
+      - name: name
+        type: string
+        description: The name of the storage class to create
+      - name: provisioner_name
+        type: string
+        description: The name of the storage provisioner
+      - name: vol_binding_mode
+        type: string
+        description: Volume binding mode for the storage class
+        default: WaitForFirstConsumer
+        optional: true
+      - name: isdefault
+        type: string
+        description: Set to default storage class
+        default: "false"
+        optional: true
+      - name: allow_expansion
+        type: string
+        description: Allow expansion of the volume
+        default: "true"
+        optional: true
+      - name: reclaim_policy
+        type: string
+        description: Reclaim policy for the storage class
+        default: Delete
+        optional: true
+    version: v0.0.1
+    outputs:
+      - name: storage_name
+        description: Name of the storage class created
   - platforms:
       - kubernetes
       - ocp3

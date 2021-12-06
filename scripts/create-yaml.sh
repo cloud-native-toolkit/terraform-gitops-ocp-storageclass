@@ -19,6 +19,6 @@ metadata:
     storageclass.kubernetes.io/is-default-class: '${ISDEFAULT}'
 provisioner: '${PROVISIONER}'
 volumeBindingMode: '${BINDINGMODE}'
-allowVolumeExpansion: '${VOLEXPANSION}'
+allowVolumeExpansion: ${VOLEXPANSION}
 reclaimPolicy: '${REPOLICY}'
 EOL

@@ -2,7 +2,6 @@ locals {
   name          = "ocpstorageclass"
   namespace     = "default"
   bin_dir       = module.setup_clis.bin_dir
-  //yaml_dir      = "${path.cwd}/.tmp/storageclass-${var.sc_name}"
   yaml_dir     = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
 
   layer = "infrastructure"
@@ -16,7 +15,7 @@ module setup_clis {
 
 resource null_resource create_yaml {
   provisioner "local-exec" {
-    command = "${path.module}/scripts/create-yaml.sh '${local.name}' '${local.yaml_dir}' ${var.sc_isdefault} ${var.sc_provisioner_name} ${var.sc_vol_binding_mode} ${var.sc_allow_expansion} ${var.sc_reclaim_policy}"
+    command = "${path.module}/scripts/create-yaml.sh '${var.name}' '${local.yaml_dir}' ${var.isdefault} ${var.provisioner_name} ${var.vol_binding_mode} ${var.allow_expansion} ${var.reclaim_policy}"
 
     environment = {
       BIN_DIR = local.bin_dir

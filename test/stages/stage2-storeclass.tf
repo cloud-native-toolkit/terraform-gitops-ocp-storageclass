@@ -10,8 +10,8 @@ module "gitops_storeclass" {
   //tls_secret_name = module.dev_cluster.platform.tls_secret
   //kubeseal_cert = module.argocd-bootstrap.sealed_secrets_cert
   
-  sc_name="ibmc-vpc-block-10iops-test"
-  sc_provisioner_name="vpc.block.csi.ibm.io"
+  name="ibmc-vpc-block-10iops-test"
+  provisioner_name="vpc.block.csi.ibm.io"
 
 }
 

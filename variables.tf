@@ -68,35 +68,35 @@ variable "server_name" {
   default     = "default"
 }
 
-variable "sc_name" {
+variable "name" {
   type        = string
   description = "The name of the storage class to create"
 }
 
-variable "sc_provisioner_name" {
+variable "provisioner_name" {
   type        = string
   description = "The name of the storage provisioner"
 }
 
-variable "sc_vol_binding_mode" {
+variable "vol_binding_mode" {
   type        = string
   description = "Volume binding mode for the storage class"
   default     = "WaitForFirstConsumer"
 }
 
-variable "sc_isdefault" {
+variable "isdefault" {
   type        = string
   description = "Set to default storage class"
   default     = "false"
 }
 
-variable "sc_allow_expansion" {
+variable "allow_expansion" {
   type        = string
   description = "Allow expansion of the volume"
   default     = "true"
 }
 
-variable "sc_reclaim_policy" {
+variable "reclaim_policy" {
   type        = string
   description = "Reclaim policy for the storage class"
   default     = "Delete"

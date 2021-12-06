@@ -11,8 +11,7 @@ TYPE="base"
 LAYER="2-services"
 
 COMPONENT_NAME="ocpstorageclass"
-#NAMESPACE=${COMPONENT_NAME}
-NAMESPACE="gitops-ocpstorageclass"
+NAMESPACE="default"
 
 STORNAME=$(cat git_sc_name)
 
@@ -32,13 +31,13 @@ fi
 echo "Printing argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
 cat "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
 
-if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml" ]]; then
-  echo "Application values not found - payload/2-services/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
+if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml" ]]; then
+  echo "Application values not found - payload/2-services/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
   exit 1
 fi
 
-#echo "Printing payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
-#cat "payload/${LAYER}namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
+echo "Printing payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
+cat "payload/${LAYER}namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
 #
 #count=0
 #until kubectl get namespace "${NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do

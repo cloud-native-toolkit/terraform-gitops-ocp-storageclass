@@ -7,6 +7,7 @@ PROVISIONER="$4"
 BINDINGMODE="$5"
 VOLEXPANSION="$6"
 REPOLICY="$7"
+PARMS="$8"
 
 mkdir -p "${DEST_DIR}"
 
@@ -22,3 +23,14 @@ volumeBindingMode: '${BINDINGMODE}'
 allowVolumeExpansion: ${VOLEXPANSION}
 reclaimPolicy: '${REPOLICY}'
 EOL
+
+PARMLENGTH=$(echo ${PARMS} | jq '.parameters[0] | length')
+
+if [[ ${PARMLENGTH} != 0 ]]; then
+
+cat >> ${DEST_DIR}/sc.yaml << EOL
+parameters: 
+$(echo ${PARMS} | jq -r '.parameters[0] | to_entries[] |  "\(.key): \(.value)"' | awk '{printf "  %s\n", $0}')
+EOL
+fi 
+

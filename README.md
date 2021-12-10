@@ -3,7 +3,8 @@
 ![Verify and release module](https://github.com/cloud-native-toolkit/terraform-gitops-ocp-storageclass/workflows/Verify%20and%20release%20module/badge.svg)
 
 
-This module will create a k8s StorageClass within an OCP cluster via gitops. 
+This module will create a k8s StorageClass within an OCP cluster via gitops.  
+The variable `parameter_list` is optional, see example below on how to create the object if using parameters in the class.  If not using parameters in the class, then leave the variable as is.
 
 ## Supported platforms
 
@@ -44,5 +45,7 @@ module "storageclass" {
   
   name="ibmc-vpc-block-10iops-tier-test"
   provisioner_name="vpc.block.csi.ibm.io"
+
+  parameter_list={"parameters":[{"classVersion":"'1'","csi.storage.k8s.io/fstype":"ext4","encrypted":"'false'"}]}
 }
 ```

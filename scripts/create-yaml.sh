@@ -25,6 +25,8 @@ reclaimPolicy: '${REPOLICY}'
 EOL
 
 PARMLENGTH=$(echo ${PARMS} | jq '.parameters[0] | length')
+echo "parmlength:" ${PARMLENGTH}
+echo "parmslist: " ${PARMS}
 
 if [[ ${PARMLENGTH} != 0 ]]; then
 

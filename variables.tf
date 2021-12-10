@@ -105,14 +105,14 @@ variable "reclaim_policy" {
 variable "parameter_list" {
   description = "optional parameters when defining the class"
   type        = object({
-    parameters = object({})
+    parameters = object(any)
   })
 
   default = {
     parameters = {
-      type = ""
-      fsType = ""
-      encrypted = ""
+        "type" = ""
+        "fsType" = ""
+        "encrypted" = ""
     }
   }
   

@@ -8,7 +8,10 @@ module "gitops_storeclass" {
   name="ibmc-vpc-block-10iops-tier-test"
   provisioner_name="vpc.block.csi.ibm.io"
 
-  parameter_list={"parameters":[{"classVersion":"'1'","csi.storage.k8s.io/fstype":"ext4","encrypted":"'false'","profile":"10iops-tier","sizeRange":"'[10-2000]GiB'"}]}
+  //parameter_list={"parameters":[{"classVersion":"'1'","csi.storage.k8s.io/fstype":"ext4","encrypted":"'false'","profile":"10iops-tier","sizeRange":"'[10-2000]GiB'"}]}
+
+parameter_list={parameters = {classVersion="1",csi.storage.k8s.io/fstype=ext4,encrypted="false",profile="10iops-tier",sizeRange="[10-2000]GiB"}}
+
 }
 
 resource null_resource gitops_sc_output {

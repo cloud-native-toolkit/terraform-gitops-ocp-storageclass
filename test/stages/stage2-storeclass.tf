@@ -10,7 +10,7 @@ module "gitops_storeclass" {
 
   //parameter_list={"parameters":[{"classVersion":"'1'","csi.storage.k8s.io/fstype":"ext4","encrypted":"'false'","profile":"10iops-tier","sizeRange":"'[10-2000]GiB'"}]}
 
-parameter_list={parameters = {classVersion="1",csi.storage.k8s.io/fstype=ext4,encrypted="false",profile="10iops-tier",sizeRange="[10-2000]GiB"}}
+parameter_list={parameters = {classVersion="1",fstype="ext4",encrypted="false",profile="10iops-tier",sizeRange="[10-2000]GiB"}}
 
 }
 

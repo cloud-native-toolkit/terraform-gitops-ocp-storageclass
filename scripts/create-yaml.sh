@@ -24,15 +24,15 @@ allowVolumeExpansion: ${VOLEXPANSION}
 reclaimPolicy: '${REPOLICY}'
 EOL
 
-PARMLENGTH=$(echo ${PARMS} | jq '.parameters[0] | length')
-echo "parmlength:" ${PARMLENGTH}
-echo "parmslist: " ${PARMS}
+PARMLENGTH=$(echo "${PARMS}" | jq '.[] | length')
+echo "parmlength: ${PARMLENGTH}"
+echo "parmslist: ${PARMS}"
 
 if [[ ${PARMLENGTH} != 0 ]]; then
 
 cat >> ${DEST_DIR}/sc.yaml << EOL
 parameters: 
-$(echo ${PARMS} | jq -r '.parameters[0] | to_entries[] |  "\(.key): \(.value)"' | awk '{printf "  %s\n", $0}')
+$(echo "${PARMS}" | jq -r '.[] |  "\(.key): \(.value)"' | awk '{printf "  %s\n", $0}')
 EOL
 fi 
 

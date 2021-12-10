@@ -102,31 +102,18 @@ variable "reclaim_policy" {
   default     = "Delete"
 }
 
-//variable "parameter_list" {
-//  description = "optional parameters when defining the class"
-//  type        = object({
-//    parameters = object()
-//    })
-//  default = [
-//    {
-//    parameters = [{}]
-//    }
-//  ]
-//}
-
 variable "parameter_list" {
   description = "optional parameters when defining the class"
   type        = object({
     parameters = object({})
   })
 
-  default = [
-    {
-    parameters = [{
+  default = {
+    parameters = {
       type = ""
       fsType = ""
       encrypted = ""
-    }]
     }
-  ]
+  }
+  
 }

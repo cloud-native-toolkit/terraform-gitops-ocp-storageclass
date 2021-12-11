@@ -102,3 +102,13 @@ variable "reclaim_policy" {
   default     = "Delete"
 }
 
+variable "parameter_list" {
+  description = "optional parameters when defining the class, see ReadMe for sample syntax"
+  type        = list(object({
+    key = string
+    value = string
+  }))
+
+  default = []
+  
+}

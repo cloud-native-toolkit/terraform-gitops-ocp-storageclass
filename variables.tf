@@ -103,23 +103,12 @@ variable "reclaim_policy" {
 }
 
 variable "parameter_list" {
-  description = "optional parameters when defining the class"
+  description = "optional parameters when defining the class, see ReadMe for sample syntax"
   type        = list(object({
     key = string
     value = string
   }))
 
-  default = [
-    {
-        key = "type"
-        value = ""
-    },{
-       key = "fsType"
-       value = ""
-    },{
-      key = "encrypted"
-      value = ""
-    } 
-  ]
+  default = []
   
 }

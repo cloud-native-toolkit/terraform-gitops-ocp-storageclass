@@ -17,7 +17,7 @@ module setup_clis {
 
 resource null_resource create_yaml {
   provisioner "local-exec" {
-    command = "${path.module}/scripts/create-yaml.sh '${var.name}' '${local.yaml_dir}' ${var.isdefault} ${var.provisioner_name} ${var.vol_binding_mode} ${var.allow_expansion} ${var.reclaim_policy} '${var.parameter_list}'"
+    command = "${path.module}/scripts/create-yaml.sh '${var.name}' '${local.yaml_dir}' ${var.isdefault} ${var.provisioner_name} ${var.vol_binding_mode} ${var.allow_expansion} ${var.reclaim_policy} ${var.parameter_list}"
 
     environment = {
       BIN_DIR = local.bin_dir

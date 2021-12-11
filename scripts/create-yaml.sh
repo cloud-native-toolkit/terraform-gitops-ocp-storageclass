@@ -24,7 +24,7 @@ allowVolumeExpansion: ${VOLEXPANSION}
 reclaimPolicy: '${REPOLICY}'
 EOL
 
-PARMLENGTH=$(echo "${PARMS}" | jq '.[] | length')
+PARMLENGTH=$(echo "${PARMS}" | jq '. | length')
 echo "parmlength: ${PARMLENGTH}"
 echo "parmslist: ${PARMS}"
 

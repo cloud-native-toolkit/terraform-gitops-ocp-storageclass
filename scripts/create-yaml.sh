@@ -31,8 +31,9 @@ echo "parmslist: ${PARMS}"
 if [[ ${PARMLENGTH} != 0 ]]; then
 
 cat >> ${DEST_DIR}/sc.yaml << EOL
-parameters: 
-$(echo "${PARMS}" | jq -r '.[] |  "\(.key): \(.value)"' | awk '{printf "  %s\n", $0}')
+parameters: $(echo "${PARMS}" | jq -c 'from_entries')
 EOL
 fi 
 
+#parameters: 
+#$(echo "${PARMS}" | jq -r '.[] |  "\(.key): \(.value)"' | awk '{printf "  %s\n", $0}')

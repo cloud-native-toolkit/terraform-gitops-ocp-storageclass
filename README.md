@@ -37,7 +37,7 @@ This module makes use of the output from other modules:
 
 ```hcl-terraform
 module "storageclass" {
-  source = "github.com/cloud-native-toolkit/terraform-gitops-ocp-storageclass?ref=v1.0.0"
+  source = "github.com/cloud-native-toolkit/terraform-gitops-ocp-storageclass"
 
   gitops_config = module.gitops.gitops_config
   git_credentials = module.gitops.git_credentials
@@ -50,3 +50,4 @@ module "storageclass" {
 
 }
 ```
+

@@ -18,6 +18,7 @@ metadata:
   name: ${NAME}
   annotations:
     storageclass.kubernetes.io/is-default-class: '${ISDEFAULT}'
+    argocd.argoproj.io/sync-wave: "-10"
 provisioner: '${PROVISIONER}'
 volumeBindingMode: '${BINDINGMODE}'
 allowVolumeExpansion: ${VOLEXPANSION}

@@ -1,8 +1,9 @@
-name: "OCP Storage Class"
-type: terraform
-description: ""
+name: gitops-storageclass
+type: gitops
+description: Module to populate a gitops repo with the resources to provision a storage class in an OCP cluster
 tags:
-  - tools
+  - storage class
+  - ocp
   - gitops
 versions:
   - platforms:

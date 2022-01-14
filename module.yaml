@@ -1,4 +1,5 @@
 name: gitops-storageclass
+alias: storageclass
 type: gitops
 description: Module to populate a gitops repo with the resources to provision a storage class in an OCP cluster
 tags:

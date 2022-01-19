@@ -37,7 +37,7 @@ if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml" ]
 fi
 
 echo "Printing payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
-cat "payload/${LAYER}namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
+cat "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
 
 count=0
 until kubectl get StorageClass ${STORNAME} || [[ $count -eq 15 ]]; do

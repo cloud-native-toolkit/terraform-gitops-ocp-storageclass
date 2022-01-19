@@ -72,7 +72,7 @@ variable "git_org" {
 }
 
 variable "git_repo" {
-  default = "git-module-test"
+  default = "git-module-storageclass"
 }
 
 variable "gitops_namespace" {

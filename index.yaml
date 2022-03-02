@@ -15,6 +15,129 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-tools-gitops.git
             version: ">= 1.1.0"
+    variables:
+      - name: gitops_config
+        moduleRef:
+          id: gitops
+          output: gitops_config
+        type: |-
+          object({
+              boostrap = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              infrastructure = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              services = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+              applications = object({
+                argocd-config = object({
+                  project = string
+                  repo = string
+                  url = string
+                  path = string
+                })
+                payload = object({
+                  repo = string
+                  url = string
+                  path = string
+                })
+              })
+            })
+        description: Config information regarding the gitops repo structure
+      - name: git_credentials
+        moduleRef:
+          id: gitops
+          output: git_credentials
+        type: |-
+          list(object({
+              repo = string
+              url = string
+              username = string
+              token = string
+            }))
+        description: The credentials for the gitops repo(s)
+      - name: server_name
+        moduleRef:
+          id: gitops
+          output: server_name
+        type: string
+        description: The name of the server
+        default: default
+        optional: true
+      - name: name
+        type: string
+        description: The name of the storage class to create
+      - name: provisioner_name
+        type: string
+        description: The name of the storage provisioner
+      - name: vol_binding_mode
+        type: string
+        description: Volume binding mode for the storage class
+        default: WaitForFirstConsumer
+        optional: true
+      - name: isdefault
+        type: string
+        description: Set to default storage class
+        default: "false"
+        optional: true
+      - name: allow_expansion
+        type: string
+        description: Allow expansion of the volume
+        default: "true"
+        optional: true
+      - name: reclaim_policy
+        type: string
+        description: Reclaim policy for the storage class
+        default: Delete
+        optional: true
+      - name: parameter_list
+        type: |-
+          list(object({
+              key = string
+              value = string
+            }))
+        description: optional parameters when defining the class, see ReadMe for sample syntax
+        default: []
+        optional: true
+    version: v1.2.3
+    outputs:
+      - name: storage_name
+        description: Name of the storage class created
+  - platforms:
+      - kubernetes
+      - ocp4
+    dependencies:
+      - id: gitops
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-tools-gitops.git
+            version: ">= 1.1.0"
       - id: namespace
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git

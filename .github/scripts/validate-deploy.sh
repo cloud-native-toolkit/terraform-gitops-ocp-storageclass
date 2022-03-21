@@ -37,13 +37,13 @@ if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml" ]
 fi
 
 echo "Printing payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
-cat "payload/${LAYER}namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
+cat "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/sc.yaml"
 
 count=0
 until kubectl get StorageClass ${STORNAME} || [[ $count -eq 15 ]]; do
   echo "Waiting for StorageClass ${STORNAME} to deploy"
   count=$((count + 1))
-  sleep 15
+  sleep 60
 done
 
 if [[ $count -eq 15 ]]; then
@@ -55,5 +55,4 @@ kubectl get StorageClass ${STORNAME} || exit 1
 
 cd ..
 rm -rf .testrepo
-
 
